@@ -77,22 +77,6 @@ def get_parser():
     return parser
 
 
-def test_opencv_video_format(codec, file_ext):
-    with tempfile.TemporaryDirectory(prefix="video_format_test") as dir:
-        filename = os.path.join(dir, "test_file" + file_ext)
-        writer = cv2.VideoWriter(
-            filename=filename,
-            fourcc=cv2.VideoWriter_fourcc(*codec),
-            fps=float(30),
-            frameSize=(10, 10),
-            isColor=True,
-        )
-        [writer.write(np.zeros((10, 10, 3), np.uint8)) for _ in range(30)]
-        writer.release()
-        if os.path.isfile(filename):
-            return True
-        return False
-
 def xyxy_to_xywh(box):
     x_min, y_min, x_max, y_max = box
     width = x_max - x_min
@@ -116,8 +100,8 @@ def main() -> None:
 
     if len(args.input) == 1:
         
-        args.input = glob.glob(f'{args.input}/*.png') #/mnt/SSD7/yuwei-hdd3/selected/HW2/nycu-hw2-data/test
-        args.input = glob.glob('/mnt/SSD7/yuwei-hdd3/selected/HW2/nycu-hw2-data/test/*.png')
+        # args.input = glob.glob(f'{args.input}/*.png') 
+        args.input = glob.glob('../nycu-hw2-data/test/*.png')
         # print(args.input)
         assert args.input, "The input path(s) was not found"
     for path in tqdm.tqdm(args.input, disable=not args.output):
