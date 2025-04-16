@@ -40,8 +40,8 @@ from detectron2.modeling import GeneralizedRCNNWithTTA
 
 
 from detectron2.data.datasets import register_coco_instances
-register_coco_instances("my_dataset_train", {}, "/mnt/SSD7/yuwei-hdd3/selected/HW2/nycu-hw2-data/train.json", "/mnt/SSD7/yuwei-hdd3/selected/HW2/nycu-hw2-data/train")
-register_coco_instances("my_dataset_val", {}, "/mnt/SSD7/yuwei-hdd3/selected/HW2/nycu-hw2-data/valid.json", "/mnt/SSD7/yuwei-hdd3/selected/HW2/nycu-hw2-data/valid")
+register_coco_instances("my_dataset_train", {}, "../nycu-hw2-data/train.json", "../nycu-hw2-data/train")
+register_coco_instances("my_dataset_val", {}, "../nycu-hw2-data/valid.json", "../nycu-hw2-data/valid")
 # register_coco_instances("my_dataset_test", {}, "/content/test/_annotations.coco.json", "/content/test")
 
 def build_evaluator(cfg, dataset_name, output_folder=None):
@@ -130,7 +130,6 @@ def setup(args):
 
 def main(args):
     cfg = setup(args)
-    print('aaaaaaaaaaaa:,  , ',cfg.TEST.AUG.ENABLED)
     if args.eval_only:
         model = Trainer.build_model(cfg)
         DetectionCheckpointer(model, save_dir=cfg.OUTPUT_DIR).resume_or_load(
